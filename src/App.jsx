@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css'
-import Home from './pages/Home';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './App.css';
 import About from './pages/About';
+import Home from './pages/Home';
 import Math from './pages/Math';
+import Playground from './pages/Playground';
 import Quest from './pages/Quest';
 
 import Exam from './pages/Exam';
@@ -25,6 +26,10 @@ function App() {
             <li>
               <Link to="/about" className="text-white hover:text-gray-300 transition-colors">關於我們</Link>
             </li>
+            <li>
+              <Link to="/playground" className="text-white hover:text-gray-300 transition-colors">Latex!</Link>
+            </li>
+
           </ul>
         </nav>
 
@@ -33,6 +38,7 @@ function App() {
           <Route path="/math" element={<Math />} />
           <Route path="/quest" element={<Quest />} />
           <Route path="/about" element={<About />} />
+          <Route path="/playground" element={<Playground />} />
 
           <Route path="/exam/:questId" element={<Exam />} />
         </Routes>

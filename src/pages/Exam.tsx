@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Latex from "react-latex-next";
-import type { QuestDetail, QuestDetailResponse } from "../types/api";
+import type { QuestDetail, QuestDetailResponse } from "@/types/api";
 
 const Exam = (): React.JSX.Element => {
   const params = useParams(); // 從 URL 獲取參數

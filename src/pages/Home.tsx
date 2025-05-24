@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { HomeApiResponse } from '../types/api';
+import type { HomeApiResponse } from '@/types/api';
 
 const Home = (): React.JSX.Element => {
   const [count, setCount] = useState<number>(0);

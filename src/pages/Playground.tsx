@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 
 const Playground = (): React.JSX.Element => {
   const [latexSyntax, setLatexSyntax] = useState<string>(
-    `這是 **Markdown** 語法\n行內公式：$E = mc^2$\n區塊公式：$$\\int_0^\\infty x^2 dx$$`,
+    "這是 **Markdown** 語法\n行內公式：$E = mc^2$\n區塊公式：$$\\int_0^\\infty x^2 dx$$",
   );
 
   return (
@@ -36,7 +36,6 @@ const Playground = (): React.JSX.Element => {
           React Markdown 渲染
         </div>
         <ReactMarkdown
-          children={latexSyntax}
           remarkPlugins={[remarkMath]}
           rehypePlugins={[rehypeKatex]}
           components={{
@@ -44,7 +43,9 @@ const Playground = (): React.JSX.Element => {
               <p className="whitespace-pre-line mb-4 text-left">{children}</p>
             ),
           }}
-        />
+        >
+          {latexSyntax}
+        </ReactMarkdown>
       </div>
     </div>
   );

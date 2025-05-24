@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import type { QuestItem, QuestListResponse } from '../types/api';
+import type { QuestItem, QuestListResponse } from '@/types/api';
 
 const Quest = (): React.JSX.Element => {
     const [data, setData] = useState<QuestItem[]>([]);           // 查詢題目

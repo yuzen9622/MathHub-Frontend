@@ -1,11 +1,11 @@
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import "./App.css";
-import About from "./pages/About";
-import Home from "./pages/Home";
-import Playground from "./pages/Playground";
-import MathPage from "./pages/Math";
-import Quest from "./pages/Quest";
-import Exam from "./pages/Exam";
+import "@/App.css";
+import About from "@/pages/About";
+import Home from "@/pages/Home";
+import Playground from "@/pages/Playground";
+import MathPage from "@/pages/Math";
+import Quest from "@/pages/Quest";
+import Exam from "@/pages/Exam";
 function App(): React.JSX.Element {
   return (
     <Router>

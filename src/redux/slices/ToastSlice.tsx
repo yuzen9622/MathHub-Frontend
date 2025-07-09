@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { _uuid } from 'shared/utils/utils';
+import { getUUID } from '@lib/utils';
 
 const toastSlice = createSlice({
 	name: 'toast',
@@ -10,7 +10,7 @@ const toastSlice = createSlice({
 
 	reducers: {
 		AddToast(state, action) {
-			state.toasts = [...state.toasts, {...action.payload, id: _uuid() }]
+			state.toasts = [...state.toasts, {...action.payload, id: getUUID() }]
 		},
 
 		RemoveToast(state, action) {

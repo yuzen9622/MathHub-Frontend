@@ -1,125 +1,121 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  account: string;
+  permissionList: string[];
+}
+
+interface AuthState {
+  // User Info
+  user: User | null;
+
+  // Auth State
+  isAuthenticated: boolean;
+  isFetching: boolean;
+  error: string | null;
+}
+
+const initialState: AuthState = {
+  user: null,
+  isAuthenticated: false,
+  isFetching: false,
+  error: null,
+};
 
 const authSlice = createSlice({
-	name: "auth",
-	initialState: {
-		userToken: localStorage.getItem("userToken") || sessionStorage.getItem("userToken") || null,
-		userName: localStorage.getItem("userName") || sessionStorage.getItem("userName") || null,
-		userID: localStorage.getItem("userID") || sessionStorage.getItem("userID") || null,
-		userAccount: null,
-		refreshToken: localStorage.getItem("refreshToken") || sessionStorage.getItem("refreshToken") || null,
-		// lastChangePasswordTime: localStorage.getItem("lastChangePasswordTime") || null,
-		// roles: [],
-		companyName: null,
-		userEmail: null,
-		userPhone: null,
-		defaultPage: null,
-		permissionList: [],
-		isFetching: false,
-		error: false,
-	},
-	reducers: {
-		LoginStart(state, action) {
-			state.userToken = null;
-			state.userName = null;
-			state.userID = null;
-			state.userAccount = null;
-			state.refreshToken = null;
-			// state.lastChangePasswordTime = null;
-			// state.roles = [];
-			state.companyName = null;
-			state.userEmail = null;
-			state.userPhone = null;
-			state.defaultPage = null;
-			state.permissionList = [];
-			state.isFetching = true;
-			state.error = false;
-		},
+  name: "auth",
+  initialState,
+  reducers: {
+    // 登入流程
+    loginStart: (state) => {
+      state.isFetching = true;
+      state.error = null;
+    },
 
-		LoginSuccess(state, action) {
-			state.userToken = action.payload.token;
-			state.userName = action.payload.name;
-			state.userID = action.payload.userID;
-			state.userAccount = action.payload.account;
-			state.refreshToken = action.payload.refreshToken;
-			// state.lastChangePasswordTime = action.payload.lastChangePasswordTime;
-			// state.roles = action.payload.roles;
-			state.companyName = action.payload.companyName;
-			state.userEmail = action.payload.email;
-			state.userPhone = action.payload.phone;
-			state.defaultPage = action.payload.defaultPage;
-			state.permissionList = action.payload.permissionList;
-			state.isFetching = false;
-			state.error = false;
-		},
+    loginSuccess: (
+      state,
+      action: PayloadAction<{
+        user: User;
+      }>,
+    ) => {
+      state.user = action.payload.user;
+      state.isAuthenticated = true;
+      state.isFetching = false;
+      state.error = null;
+    },
 
-		LoginFailure(state, action) { 
-			state.userToken = null;
-			state.userName = null;
-			state.userID = null;
-			state.userAccount = null;
-			state.refreshToken = null;
-			// state.lastChangePasswordTime = null;
-			// state.roles = [];
-			state.companyName = null;
-			state.userEmail = null;
-			state.userPhone = null;
-			state.defaultPage = null;
-			state.permissionList = [];
-			state.isFetching = false;
-			state.error = true;
-		},
+    loginFailure: (state, action: PayloadAction<string>) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isFetching = false;
+      state.error = action.payload;
+    },
 
-		LogOut(state, action) {
-			state.userToken = null;
-			state.userName = null;
-			state.userID = null;
-			state.userAccount = null;
-			state.refreshToken = null;
-			// state.lastChangePasswordTime = null;
-			// state.roles = [];
-			state.companyName = null;
-			state.userEmail = null;
-			state.userPhone = null;
-			state.defaultPage = null;
-			state.permissionList = [];
-			state.isFetching = false;
-			state.error = false;
-		},
+    // 登出
+    logout: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isFetching = false;
+      state.error = null;
+    },
 
-		UpdateChangePasswordTime(state, action) { 
-			// state.lastChangePasswordTime = action.payload;
-		},
+    // Token 更新
+    refreshTokenStart: (state) => {
+      state.isFetching = true;
+      state.error = null;
+    },
 
-		UpdateDefaultPage(state, action) {
-			state.defaultPage = action.payload;
-		},
+    refreshTokenSuccess: (state) => {
+      state.isFetching = false;
+      state.error = null;
+    },
 
-		UpdateUserInfo(state, action) {
-			state.userName = action.payload.name;
-			state.userEmail = action.payload.email;
-			state.userPhone = action.payload.phoneNum;
-		},
+    refreshTokenFailure: (state, action: PayloadAction<string>) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isFetching = false;
+      state.error = action.payload;
+    },
 
-		VerifyUserToken(state,action) {
-			state.userName = action.payload.name;
-			state.userID= action.payload.userID;
-			state.userAccount = action.payload.account;
-			state.companyName = action.payload.companyName;
-			state.userEmail = action.payload.email;
-			state.userPhone = action.payload.phoneNum;
-			state.defaultPage = action.payload.dashboardDefaultPage;
-			state.permissionList = action.payload.permissionList;
-		},
+    // 更新用戶資訊
+    updateUserInfo: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
 
-		RefreshToken(state,action) {
-			state.userToken = action.payload.idToken;
-			state.userID = action.payload.userID;
-			state.refreshToken = action.payload.refreshToken;
-		}
-	},
+    // 清除錯誤
+    clearError: (state) => {
+      state.error = null;
+    },
+
+    // 初始化認證狀態（從 localStorage 恢復）
+    initializeAuth: (
+      state,
+      action: PayloadAction<{
+        user: User;
+      }>,
+    ) => {
+      state.user = action.payload.user;
+      state.isAuthenticated = true;
+    },
+  },
 });
 
-export const { LoginStart, LoginSuccess, LoginFailure, LogOut, UpdateChangePasswordTime, UpdateDefaultPage, UpdateUserInfo, VerifyUserToken, RefreshToken } = authSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logout,
+  refreshTokenStart,
+  refreshTokenSuccess,
+  refreshTokenFailure,
+  updateUserInfo,
+  clearError,
+  initializeAuth,
+} = authSlice.actions;
 
 export default authSlice.reducer;

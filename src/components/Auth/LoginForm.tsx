@@ -1,7 +1,7 @@
+import { tokenUtils } from "@/lib/cookieUtils";
 import { loginFailure, loginStart, loginSuccess } from "@/redux/slices/AuthSlice";
 import type { RootState } from "@/redux/store/app";
 import { authAPI } from "@/services/authService";
-import { tokenUtils } from "@/utils/cookieUtils";
 import type React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

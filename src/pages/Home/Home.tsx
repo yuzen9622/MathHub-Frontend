@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { getUUID } from "@lib/utils"
+import { getUUID } from "@/lib/utils"
 
 import { Bell, BookOpen, Calendar, Github, PenTool, Search } from "lucide-react"
 
-import { ReactComponent as MathCatFullLogo } from "@assets/logo/MathCat_Full.svg"
+import { ReactComponent as MathCatFullLogo } from "@/assets/logo/MathCat_Full.svg"
 
 const Home = (): React.JSX.Element => {
   return (

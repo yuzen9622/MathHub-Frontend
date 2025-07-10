@@ -1,8 +1,8 @@
+import { tokenUtils } from '@/lib/cookieUtils';
 import { initializeAuth, loginFailure, loginStart, loginSuccess, logout } from '@/redux/slices/AuthSlice';
 import type { RootState } from '@/redux/store/app';
 import { authAPI, cleanupTokenRefresh, setupTokenRefresh } from '@/services/authService';
 import type { LoginRequest, LoginResponse, UpdateProfileResponse, User } from '@/types/auth';
-import { tokenUtils } from '@/utils/cookieUtils';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

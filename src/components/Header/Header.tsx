@@ -2,13 +2,13 @@ import { logout } from "@/redux/slices/AuthSlice";
 import type { RootState } from "@/redux/store/app";
 
 import { Button } from "@/components/ui/button";
+import { tokenUtils } from "@/lib/cookieUtils";
 import { authAPI } from "@/services/authService";
-import { tokenUtils } from "@/utils/cookieUtils";
 import type React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ReactComponent as MathCat } from "@assets/logo/MathCat.svg";
+import { ReactComponent as MathCat } from "@/assets/logo/MathCat.svg";
 
 import { ChevronDown, LogIn, User } from "lucide-react";
 

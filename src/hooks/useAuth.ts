@@ -3,11 +3,37 @@ import { initializeAuth, loginFailure, loginStart, loginSuccess, logout } from '
 import type { RootState } from '@/redux/store/app';
 import { authAPI, cleanupTokenRefresh, setupTokenRefresh } from '@/services/authService';
 import type { LoginRequest, LoginResponse, UpdateProfileResponse, User } from '@/types/auth';
-import { useEffect } from 'react';
+import React, { createContext, useContext, useEffect, type ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export const useAuth = () => {
+// 定義 Auth Context 的類型
+interface AuthContextType {
+	// 狀態
+	user: User | null;
+	isAuthenticated: boolean;
+	isFetching: boolean;
+	error: string | null;
+
+	// 操作
+	login: (credentials: LoginRequest) => Promise<{ success: boolean; error?: string }>;
+	logout: () => Promise<void>;
+	refreshToken: () => Promise<boolean>;
+	updateUserInfo: (userData: Partial<User>) => Promise<{ success: boolean; user?: User; error?: string }>;
+	changePassword: (currentPassword: string, newPassword: string) => Promise<{ success: boolean; error?: string }>;
+	forgotPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
+
+	// 權限檢查
+	hasPermission: (permission: string) => boolean;
+	hasAnyPermission: (permissions: string[]) => boolean;
+	hasAllPermissions: (permissions: string[]) => boolean;
+}
+
+// 創建 Auth Context
+const AuthContext = createContext<AuthContextType | null>(null);
+
+// 內部 hook 實現
+const useAuthInternal = (): AuthContextType => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const authState = useSelector((state: RootState) => state.authSlice);
@@ -173,4 +199,20 @@ export const useAuth = () => {
 		hasAnyPermission,
 		hasAllPermissions,
 	};
+};
+
+// AuthProvider 組件
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+	const authValue = useAuthInternal();
+
+	return React.createElement(AuthContext.Provider, { value: authValue }, children);
+};
+
+// 對外暴露的 useAuth hook
+export const useAuth = () => {
+	const context = useContext(AuthContext);
+	if (!context) {
+		throw new Error('useAuth must be used within an AuthProvider');
+	}
+	return context;
 };

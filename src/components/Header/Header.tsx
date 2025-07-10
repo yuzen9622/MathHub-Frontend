@@ -1,33 +1,19 @@
-import { logout } from "@/redux/slices/AuthSlice";
-import type { RootState } from "@/redux/store/app";
-
 import { Button } from "@/components/ui/button";
-import { tokenUtils } from "@/lib/cookieUtils";
-import { authAPI } from "@/services/authService";
+import { useAuth } from "@/hooks/useAuth";
 import type React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { ReactComponent as MathCat } from "@/assets/logo/MathCat.svg";
 
 import { ChevronDown, LogIn, User } from "lucide-react";
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const { isAuthenticated, user, isFetching } = useSelector((state: RootState) => state.authSlice);
+  const { isAuthenticated, user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const handleLogout = async () => {
-    try {
-      await authAPI.logout();
-    } catch (error) {
-      console.error("Logout error:", error);
-    } finally {
-      // 清除本地 tokens
-      tokenUtils.clearTokens();
-      dispatch(logout());
-      setShowUserMenu(false);
-    }
+    await logout();
+    setShowUserMenu(false);
   };
 
   return (
@@ -78,23 +64,50 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
-            asChild
-          >
-            <a href="/register">
-              <User className="w-4 h-4 mr-1" />
-              註冊
-            </a>
-          </Button>
-          <Button size="sm" className="bg-blue-600 hover:bg-blue-700" asChild>
-            <a href="/login">
-              <LogIn className="w-4 h-4 mr-1" />
-              登入
-            </a>
-          </Button>
+          {isAuthenticated ? (
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
+                onClick={() => setShowUserMenu(!showUserMenu)}
+              >
+                <User className="w-4 h-4 mr-1" />
+                {user?.name || '用戶'}
+              </Button>
+              {showUserMenu && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-slate-800 border border-blue-400/20 rounded-lg shadow-lg z-50">
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-blue-300 hover:text-blue-400 hover:bg-slate-700/50 transition-colors"
+                  >
+                    登出
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
+                asChild
+              >
+                <a href="/register">
+                  <User className="w-4 h-4 mr-1" />
+                  註冊
+                </a>
+              </Button>
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700" asChild>
+                <a href="/login">
+                  <LogIn className="w-4 h-4 mr-1" />
+                  登入
+                </a>
+              </Button>
+            </>
+          )}
         </div>
       </nav>
     </header>

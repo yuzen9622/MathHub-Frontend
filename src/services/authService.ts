@@ -2,7 +2,7 @@ import { logout, refreshTokenFailure } from '@/redux/slices/AuthSlice';
 import { store } from '@/redux/store/app';
 
 // API 基礎 URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1';
 
 // 請求攔截器：自動添加 token
 const createAuthHeaders = (): HeadersInit => {
@@ -15,21 +15,31 @@ const createAuthHeaders = (): HeadersInit => {
 };
 
 // 響應攔截器：處理 token 過期
-const handleResponse = async (response: Response): Promise<unknown> => {
+const handleResponse = async (response: Response, originalRequest?: Request): Promise<unknown> => {
 	if (response.status === 401) {
+		// 如果這是已經嘗試過刷新的請求，直接登出
+		if (originalRequest) {
+			store.dispatch(logout());
+			throw new Error('認證已過期，請重新登入');
+		}
+
 		// Token 過期，嘗試刷新
 		const refreshResult = await authAPI.refreshToken();
 		if (refreshResult) {
 			// 重新發送原始請求
 			const accessToken = localStorage.getItem('accessToken');
-			const originalRequest = new Request(response.url, {
+			const newRequest = new Request(response.url, {
 				method: response.type === 'opaqueredirect' ? 'GET' : 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${accessToken}`,
 				},
+				body: response.body,
 			});
-			return fetch(originalRequest);
+
+			// 標記這是重試請求，避免無限循環
+			const retryResponse = await fetch(newRequest);
+			return handleResponse(retryResponse, newRequest);
 		}
 		// 刷新失敗，登出用戶
 		store.dispatch(logout());

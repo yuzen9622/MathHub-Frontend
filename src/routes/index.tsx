@@ -15,7 +15,7 @@ const renderRoute = (route: RouteConfig) => {
   const RouteComponent = route.element;
 
   // 登入頁面特殊處理
-  if (route.path === '/login') {
+  if (['/login', '/register'].includes(route.path)) {
     return (
       <LoginRouteGuard>
         <RouteComponent />

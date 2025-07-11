@@ -2,7 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import type React from "react";
 import { useState } from "react";
 
-import { ReactComponent as LoadingIcon } from "@/assets/icons/loading.svg";
+import { ReactComponent as LoadingIcon } from "@/assets/loading.svg";
 
 interface User {
   id: string;
@@ -12,13 +12,13 @@ interface User {
   permissionList: string[];
 }
 
-interface LoginFormProps {
+interface LoginPageProps {
   onSuccess?: () => void;
   onSwitchToRegister?: () => void;
   onSwitchToForgotPassword?: () => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({
+const LoginPage: React.FC<LoginPageProps> = ({
   onSuccess,
   onSwitchToRegister,
   onSwitchToForgotPassword,
@@ -192,4 +192,4 @@ const LoginForm: React.FC<LoginFormProps> = ({
   );
 };
 
-export default LoginForm;
+export default LoginPage;

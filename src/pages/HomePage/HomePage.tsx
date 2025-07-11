@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { getUUID } from "@/lib/utils"
 
-import { Bell, BookOpen, Calendar, Github, PenTool, Search } from "lucide-react"
+import { ReactComponent as GitHubIcon } from "@/assets/icons/icon_github.svg"
+import { Bell, BookOpen, Calendar, PenTool, Search } from "lucide-react"
 
-import { ReactComponent as MathCatFullLogo } from "@/assets/logo/MathCat_Full.svg"
+import { ReactComponent as MathCatLogo } from "@/assets/logo/MathCat_Full.svg"
 
 const Home = (): React.JSX.Element => {
   return (
@@ -15,7 +16,7 @@ const Home = (): React.JSX.Element => {
         <div className="text-center mb-12">
           <div className="mb-8">
             <div className="flex justify-center items-center mb-4">
-              <MathCatFullLogo />
+              <MathCatLogo />
             </div>
             <p className="text-xl text-blue-200 mb-8">一個專為自學數學的平台</p>
           </div>
@@ -191,10 +192,10 @@ const Home = (): React.JSX.Element => {
             </svg>
           </Button>
           <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300">
-            <Github className="w-5 h-5" />
+            <GitHubIcon className="w-5 h-5" style={{ fill: "currentColor" }} />
           </Button>
           <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300">
-            關於我們
+            <a href="/about">關於我們</a>
           </Button>
         </div>
         <div className="text-center mt-4">

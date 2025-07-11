@@ -24,7 +24,7 @@ export const useRouteGuard = () => {
 		}
 
 		// 如果已登入且訪問登入頁面，重定向到首頁
-		if (currentPath === '/login' && isLoggedIn) {
+		if (['/login', '/register'].includes(currentPath) && isLoggedIn) {
 			navigate('/', { replace: true });
 			return;
 		}
@@ -39,7 +39,7 @@ export const useRouteGuard = () => {
 
 // 路由權限檢查 hook
 export const useRoutePermission = (requiredPermissions?: string[]) => {
-	const { hasPermission, hasAnyPermission, hasAllPermissions } = useAuth();
+	const { hasAnyPermission, hasAllPermissions } = useAuth();
 
 	const checkPermission = () => {
 		if (!requiredPermissions || requiredPermissions.length === 0) {

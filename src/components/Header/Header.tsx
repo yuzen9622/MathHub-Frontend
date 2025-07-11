@@ -27,7 +27,7 @@ const Header: React.FC = () => {
           </Button>
         </div>
         <div className="hidden md:flex items-center space-x-6 text-blue-300">
-          <a href="/daily-problem" className="hover:text-blue-400 transition-colors">
+          <a href="/dailyProblem" className="hover:text-blue-400 transition-colors">
             每日一題
           </a>
           <a href="/problems" className="hover:text-blue-400 transition-colors">
@@ -49,13 +49,13 @@ const Header: React.FC = () => {
             </button>
             <div className="absolute top-full left-0 mt-2 w-48 bg-slate-800 border border-blue-400/20 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <a
-                href="/faq"
+                href="/faqs"
                 className="block px-4 py-2 text-blue-300 hover:text-blue-400 hover:bg-slate-700/50 rounded-t-lg transition-colors"
               >
                 FAQ
               </a>
               <a
-                href="/report-issue"
+                href="/reportIssue"
                 className="block px-4 py-2 text-blue-300 hover:text-blue-400 hover:bg-slate-700/50 rounded-b-lg transition-colors"
               >
                 問題回報

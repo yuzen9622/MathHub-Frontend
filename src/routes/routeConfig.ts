@@ -1,11 +1,23 @@
 import { type ComponentType, lazy } from 'react';
 
 // 懶加載組件
-const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
-const AboutPage = lazy(() => import('@/pages/AboutPage/AboutPage'));
-const ExamPage = lazy(() => import('@/pages/ExamPage/ExamPage'));
 const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
+const DailyProblemPage = lazy(() => import('@/pages/DailyProblemPage/DailyProblemPage'));
+const ProblemsPage = lazy(() => import('@/pages/ProblemsPage/ProblemsPage'));
+const ProblemsDetailPage = lazy(() => import('@/pages/ProblemsPage/ProblemsDetailPage'));
+const ConceptsPage = lazy(() => import('@/pages/ConceptsPage/ConceptsPage'));
+const ConceptsDetailPage = lazy(() => import('@/pages/ConceptsPage/ConceptsDetailPage'));
+const LeaderBoardPage = lazy(() => import('@/pages/LeaderBoardPage/LeaderBoardPage'));
+const AnnouncementsPage = lazy(() => import('@/pages/AnnouncementsPage/AnnouncementsPage'));
+const FaqsPage = lazy(() => import('@/pages/FaqsPage/FaqsPage'));
+const ReportIssuePage = lazy(() => import('@/pages/ReportIssuePage/ReportIssuePage'));
+
+const MaintenancePage = lazy(() => import('@/pages/MaintenancePage/MaintenancePage'));
+const AboutPage = lazy(() => import('@/pages/AboutPage/AboutPage'));
 const PlaygroundPage = lazy(() => import('@/pages/PlaygroundPage/PlaygroundPage'));
+
+const RegisterPage = lazy(() => import('@/pages/RegisterPage/RegisterPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 
 const AdminPage = lazy(() => import('@/pages/AdminPage/AdminPage'));
 
@@ -30,22 +42,78 @@ export const routes: RouteConfig[] = [
 		description: 'MathHub 首頁',
 	},
 	{
-		path: '/exam/:questId',
-		element: ExamPage,
-		title: '考試',
-		description: '數學考試',
+		path: '/dailyProblem',
+		element: DailyProblemPage,
+		title: '每日一題',
+		description: '每日一題',
+	},
+	{
+		path: '/problems',
+		element: ProblemsPage,
+		title: '題目',
+		description: '數學題目',
+	},
+	{
+		path: '/problems/:problemId',
+		element: ProblemsDetailPage,
+		title: '題目內容',
+		description: '數學題目內容',
+	},
+	{
+		path: '/concepts',
+		element: ConceptsPage,
+		title: '觀念',
+		description: '數學觀念',
+	},
+	{
+		path: '/concepts/:conceptId',
+		element: ConceptsDetailPage,
+		title: '觀念內容',
+		description: '數學觀念內容',
+	},
+	{
+		path: '/leaderBoard',
+		element: LeaderBoardPage,
+		title: '排行榜',
+		description: '數學排行榜',
+	},
+	{
+		path: '/announcements',
+		element: AnnouncementsPage,
+		title: '公告',
+		description: '系統公告',
+	},
+	{
+		path: '/faqs',
+		element: FaqsPage,
+		title: '常見問題',
+		description: '常見問題',
+	},
+	{
+		path: '/reportIssue',
+		element: ReportIssuePage,
+		title: '問題回報',
+		description: '問題回報',
+	},
+
+	//
+	{
+		path: '/maintenance',
+		element: MaintenancePage,
+		title: '系統維護',
+		description: '系統維護',
+	},
+	{
+		path: '/about',
+		element: AboutPage,
+		title: '關於我們',
+		description: '關於我們',
 	},
 	{
 		path: '/playground',
 		element: PlaygroundPage,
 		title: '遊樂場',
 		description: '數學遊樂場',
-	},
-	{
-		path: '/about',
-		element: AboutPage,
-		title: '關於我們',
-		description: '關於 MathHub',
 	},
 
 	// 登入頁面（已登入用戶不能訪問）
@@ -54,6 +122,13 @@ export const routes: RouteConfig[] = [
 		element: LoginPage,
 		title: '登入',
 		description: '用戶登入',
+	},
+	// 註冊頁面（已登入用戶不能訪問）
+	{
+		path: '/register',
+		element: RegisterPage,
+		title: '註冊',
+		description: '用戶註冊',
 	},
 
 	// 後臺權限路由

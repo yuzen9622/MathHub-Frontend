@@ -58,11 +58,11 @@ export default function AdminPage() {
         <div className="p-4 border-b border-blue-400/20 flex items-center justify-between">
           {sidebarOpen ? (
             <div className="flex items-center space-x-2">
-              <MathCatLogo />
+              <MathCatLogo className="w-full h-auto"/>
               <span className="font-bold text-lg">MathHub 管理</span>
             </div>
           ) : (
-            <MathCatLogo className="mx-auto" />
+            <MathCatLogo className="mx-auto w-12 h-auto" />
           )}
           <Button
             variant="ghost"

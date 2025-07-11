@@ -8,11 +8,11 @@ import {
   Heart,
   Lightbulb,
   Mail,
-  MessageCircle,
   Target,
   Users
 } from "lucide-react"
 
+import { ReactComponent as DiscordIcon } from "@/assets/icons/icon_discord.svg"
 import { ReactComponent as GitHubIcon } from "@/assets/icons/icon_github.svg"
 import { ReactComponent as MathCatLogo } from "@/assets/logo/MathCat_Full.svg"
 
@@ -209,14 +209,14 @@ export default function AboutPage() {
                 variant="outline"
                 className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
               >
-                <GitHubIcon className="w-4 h-4 mr-2" style={{ fill: "currentColor" }} />
+                <GitHubIcon className="w-4 h-4 mr-2" />
                 GitHub
               </Button>
               <Button
                 variant="outline"
                 className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <DiscordIcon className="w-4 h-4 mr-2" />
                 Discord
               </Button>
               <Button

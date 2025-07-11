@@ -1,11 +1,7 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { v4 as uuidv4 } from 'uuid';
+// 這個檔案是為了匯出 shadcn 的 cn 函數和自定義函數
 
-export const cn = (...inputs: ClassValue[]): string => {
-	return twMerge(clsx(inputs));
-};
+// 重新匯出 shadcn 的 cn 函數
+export { cn } from './shadcn-utils';
 
-export const getUUID = () => {
-	return uuidv4();
-};
+// 匯出我們的自定義函數
+export { getUUID } from './customUtils';

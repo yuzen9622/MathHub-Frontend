@@ -1,11 +1,13 @@
 import { type ComponentType, lazy } from 'react';
 
 // 懶加載組件
-const LoginForm = lazy(() => import('@/components/Auth/LoginForm'));
-const About = lazy(() => import('@/pages/About/About'));
-const Exam = lazy(() => import('@/pages/Exam/Exam'));
-const Home = lazy(() => import('@/pages/Home/Home'));
-const Playground = lazy(() => import('@/pages/Playground/Playground'));
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
+const AboutPage = lazy(() => import('@/pages/AboutPage/AboutPage'));
+const ExamPage = lazy(() => import('@/pages/ExamPage/ExamPage'));
+const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
+const PlaygroundPage = lazy(() => import('@/pages/PlaygroundPage/PlaygroundPage'));
+
+const AdminPage = lazy(() => import('@/pages/AdminPage/AdminPage'));
 
 // 路由配置介面
 export interface RouteConfig {
@@ -23,26 +25,25 @@ export const routes: RouteConfig[] = [
 	// 公開路由
 	{
 		path: '/',
-		element: Home,
+		element: HomePage,
 		title: '首頁',
 		description: 'MathHub 首頁',
 	},
 	{
 		path: '/exam/:questId',
-		element: Exam,
-		redirectTo: '/login',
+		element: ExamPage,
 		title: '考試',
 		description: '數學考試',
 	},
 	{
 		path: '/playground',
-		element: Playground,
+		element: PlaygroundPage,
 		title: '遊樂場',
 		description: '數學遊樂場',
 	},
 	{
 		path: '/about',
-		element: About,
+		element: AboutPage,
 		title: '關於我們',
 		description: '關於 MathHub',
 	},
@@ -50,9 +51,19 @@ export const routes: RouteConfig[] = [
 	// 登入頁面（已登入用戶不能訪問）
 	{
 		path: '/login',
-		element: LoginForm,
+		element: LoginPage,
 		title: '登入',
 		description: '用戶登入',
+	},
+
+	// 後臺權限路由
+	{
+		path: '/admin',
+		element: AdminPage,
+		// requireAuth: true,
+		permissions: ['admin'],
+		title: '後臺',
+		description: '後臺管理',
 	},
 ];
 

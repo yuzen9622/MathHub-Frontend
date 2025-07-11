@@ -10,15 +10,6 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// 404 頁面組件
-const NotFound = () => (
-  <div className="flex flex-col items-center justify-center min-h-screen">
-    <h1 className="text-4xl font-bold text-gray-800 mb-4">404</h1>
-    <p className="text-gray-600 mb-8">頁面不存在</p>
-    <Navigate to="/" replace />
-  </div>
-);
-
 // 渲染路由組件
 const renderRoute = (route: RouteConfig) => {
   const RouteComponent = route.element;
@@ -54,7 +45,6 @@ export default function AppRoutes() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
-        {/* 動態生成路由 */}
         {routes.map((route) => (
           <Route
             key={route.path}
@@ -63,8 +53,7 @@ export default function AppRoutes() {
           />
         ))}
 
-        {/* 404 路由 - 必須放在最後 */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
   );

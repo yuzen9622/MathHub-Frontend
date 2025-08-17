@@ -1,7 +1,7 @@
 import ProblemCalendar from "@/components/DailyProblem/ProblemCalendar";
 
-import Statistics from "./Statistics";
 import Enhanced from "./Enhanced";
+import Statistics from "./Statistics";
 
 export default function BottomSection({
   selectedGrade,

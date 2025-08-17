@@ -1,3 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -5,9 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { Dispatch, SetStateAction } from "react";
-import { Grade } from "../type";
-import { Badge } from "@/components/ui/badge";
+
+import type { Grade } from "../type";
 
 type Props = {
   selectedGrade: string;

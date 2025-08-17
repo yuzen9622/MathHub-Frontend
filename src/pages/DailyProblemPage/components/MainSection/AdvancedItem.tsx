@@ -1,3 +1,5 @@
+import { Lock } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,11 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Lock } from "lucide-react";
 
 import { useDailyInfo } from "../../hook";
 
-export default function Advanced({ selectedGrade }: { selectedGrade: string }) {
+export default function AdvancedItem({
+  selectedGrade,
+}: {
+  selectedGrade: string;
+}) {
   const { userProgress, getGradeDescription } = useDailyInfo();
   return (
     <Card

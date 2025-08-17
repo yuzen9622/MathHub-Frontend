@@ -1,17 +1,16 @@
-import React from "react";
-import Basic from "./Basic";
-import Date from "./Date";
-import Advanced from "./Advanced";
+import AdvancedItem from "./AdvancedItem";
+import BasicItem from "./BasicItem";
+import DateItem from "./DateItem";
 
 export default function index({ selectedGrade }: { selectedGrade: string }) {
   return (
     <div className="grid gap-6 mb-8 md:grid-cols-3">
       {/* Basic Problem */}
-      <Basic selectedGrade={selectedGrade} />
+      <BasicItem selectedGrade={selectedGrade} />
       {/* Date Display */}
-      <Date />
+      <DateItem />
       {/* Advanced Problem */}
-      <Advanced selectedGrade={selectedGrade} />
+      <AdvancedItem selectedGrade={selectedGrade} />
     </div>
   );
 }

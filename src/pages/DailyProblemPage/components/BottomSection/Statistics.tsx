@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Target, Trophy } from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const userProgress = {
   consecutiveDays: 51, // 連續天數
@@ -9,7 +10,7 @@ const userProgress = {
   advancedUnlocked: true, // 進階是否解鎖（簡化邏輯）
 };
 
-export default function Statistics({}) {
+export default function Statistics() {
   return (
     <Card className="bg-slate-800/50 border-blue-400/20">
       <CardHeader>

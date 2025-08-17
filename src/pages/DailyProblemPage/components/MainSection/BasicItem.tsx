@@ -1,15 +1,13 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { useDailyInfo } from "../../hook";
+import { useDailyInfo } from '../../hook';
 
-export default function Basic({ selectedGrade }: { selectedGrade: string }) {
+export default function BasicItem({
+  selectedGrade,
+}: {
+  selectedGrade: string;
+}) {
   const { getGradeDescription } = useDailyInfo();
   return (
     <Card className="transition-colors bg-slate-800/50 border-blue-400/20 hover:border-blue-400/40">

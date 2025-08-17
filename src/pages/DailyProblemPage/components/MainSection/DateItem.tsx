@@ -1,7 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import React from "react";
+import { Card, CardContent } from '@/components/ui/card';
 
-export default function Date() {
+export default function DateItem() {
   return (
     <Card className="bg-slate-800/50 border-blue-400/20">
       <CardContent className="p-8 text-center">
